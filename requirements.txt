@@ -1,0 +1,26 @@
+Flask
+python-dotenv
+crewai
+crewai_tools
+langchain_community
+langchain-google-genai
+langchain-groq
+gunicorn
+flask-cors
+flask-limiter
+python-json-logger
+markdown
+bleach
+email-validator
+beautifulsoup4
+requests
+apscheduler
+pandas
+PyPDF2
+python-docx
+
+# Free Provider SDKs
+google-generativeai
+groq
+openai
+cerebras-cloud-sdk

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Job Search Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Automated Job Search Agent</h1>
+            <p class="subtitle">AI-Powered Job Hunting System</p>
+        </header>
+
+        <main>
+            <!-- Dashboard Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>📊 Jobs Found Today</h3>
+                    <div class="stat-number" id="jobsFound">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>✅ Applications Processed</h3>
+                    <div class="stat-number" id="appsProcessed">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>⏰ Last Run</h3>
+                    <div class="stat-number" id="lastRun">Never</div>
+                </div>
+                <div class="stat-card">
+                    <h3>🔍 Agents Active</h3>
+                    <div class="stat-number" id="agentsActive">3</div>
+                </div>
+            </div>
+
+            <!-- Search Configuration -->
+            <div class="config-section">
+                <h2>⚙️ Configuration</h2>
+                <div class="input-group">
+                    <label for="role">Target Role</label>
+                    <input type="text" id="role" value="Python Developer" placeholder="e.g., Python Developer">
+                </div>
+                <div class="input-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" value="Remote" placeholder="e.g., Remote, New York">
+                </div>
+                <button id="searchBtn" class="btn-primary">🔍 Search Jobs Now</button>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="results-section hidden">
+                <h2>📋 Job Results</h2>
+                <div id="jobList" class="job-list"></div>
+            </div>
+
+            <!-- Processing Status -->
+            <div id="processing" class="processing hidden">
+                <div class="spinner"></div>
+                <h3>🔄 Processing Job Applications...</h3>
+                <p id="processingStatus">Initializing agents...</p>
+                <div class="agent-status">
+                    <span id="agent1">⏳ Job Searcher: Idle</span>
+                    <span id="agent2">⏳ Resume Customizer: Idle</span>
+                    <span id="agent3">⏳ Email Drafter: Idle</span>
+                </div>
+            </div>
+
+            <!-- Results Display -->
+            <div id="jobDetails" class="job-details hidden">
+                <h2>📄 Job Details</h2>
+                <div id="jobContent"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by CrewAI Multi-Agent System</p>
+            <p class="auto-status">🔄 Auto-search every <span id="intervalDisplay">24</span> hours</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

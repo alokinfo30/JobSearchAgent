@@ -3,6 +3,33 @@
 Automated Job Search Agent using CrewAI with asynchronous operations. This system will run daily, find jobs, customize resumes, and draft emails.
 
 
+JobSearchAgent/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── agents.py
+│   ├── tasks.py
+│   ├── crew.py
+│   ├── job_scraper.py
+│   ├── resume_customizer.py
+│   ├── email_drafter.py
+│   ├── scheduler.py
+│   └── model_manager.py
+├── templates/
+│   └── dashboard.html
+├── static/
+│   ├── style.css
+│   └── script.js
+├── data/
+│   └── resumes/
+├── logs/
+├── .env
+├── .gitignore
+├── requirements.txt
+├── test_free_models.py
+├── generate_secret.py
+└── run_scheduler.py
+
 
 
 # Automated Job Search Agent

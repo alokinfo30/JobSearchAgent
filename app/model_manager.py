@@ -21,13 +21,13 @@ class ProviderConfig:
     """Configuration for OpenRouter with free tier models"""
     
     # Free models available on OpenRouter (No cost!)
-    FREE_MODELS = [
-        "google/gemini-2.0-flash-exp:free",
-        "mistralai/mistral-7b-instruct:free",
+    FREE_MODELS = [       
+        "mistralai/mixtral-8x22b-instruct:free",
         "meta-llama/llama-3.1-8b-instruct:free",
-        "microsoft/phi-3.5-mini-128k-instruct:free",
+        "openai/gpt-4o-mini:free",
         "deepseek/deepseek-chat:free"
     ]
+
     
     # Paid models (cost per million tokens)
     PAID_MODELS = {
@@ -101,9 +101,11 @@ class OpenRouterManager:
         
         # Default fallbacks (mix of free and paid)
         return [
-            "mistralai/mistral-7b-instruct:free",
+            "mistralai/mixtral-8x22b-instruct:free",
             "meta-llama/llama-3.1-8b-instruct:free",
-            "google/gemini-2.0-flash-exp:free"
+            "openai/gpt-4o-mini:free",           
+            "deepseek/deepseek-chat:free"
+            
         ]
     
     def _test_connection(self):
@@ -147,7 +149,7 @@ class OpenRouterManager:
                 model=model,
                 messages=[{"role": "user", "content": "Test"}],
                 max_tokens=5,
-                timeout=10
+                timeout=60
             )
             return True
         except Exception as e:
@@ -206,7 +208,7 @@ class OpenRouterManager:
         return temperatures.get(agent_type.lower(), 0.5)
     
     def test_providers(self) -> Dict[str, bool]:
-        """Test all configured models"""
+        """Test all configured models with strict timeout to prevent hanging"""
         results = {}
         all_models = [self.primary_model] + self.fallback_models
         
@@ -216,7 +218,8 @@ class OpenRouterManager:
                 response = self.client.chat.completions.create(
                     model=model,
                     messages=[{"role": "user", "content": "Say OK"}],
-                    max_tokens=10
+                    max_tokens=10,
+                    timeout=15
                 )
                 results[model] = True
                 logger.info(f"✅ {model} is available")

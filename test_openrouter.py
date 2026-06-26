@@ -81,14 +81,14 @@ def test_openrouter():
                     print(f"   → {model}")
         
         print("\n" + "=" * 70)
-        print("💡 Free Models Available on OpenRouter:")
-        print("   • google/gemini-2.0-flash-exp:free")
-        print("   • mistralai/mistral-7b-instruct:free")
+        print("💡 Free Models Available on OpenRouter:")       
+        print("   • mistralai/mixtral-8x22b-instruct:free")
         print("   • meta-llama/llama-3.1-8b-instruct:free")
-        print("   • microsoft/phi-3.5-mini-128k-instruct:free")
+        print("   • openai/gpt-4o-mini:free")       
         print("   • deepseek/deepseek-chat:free")
         print("=" * 70)
-        
+            
+
         return available_count > 0
         
     except Exception as e:

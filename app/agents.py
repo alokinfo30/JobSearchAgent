@@ -14,7 +14,7 @@ class JobSearchAgents:
         self.model_manager = model_manager
     
     def _create_llm(self, config: dict):
-        """Create LangChain LLM from OpenRouter config"""
+        """Create LangChain LLM from OpenRouter config with proper compatibility"""
         model = config['model']
         temperature = config.get('temperature', 0.5)
         
@@ -24,6 +24,8 @@ class JobSearchAgents:
                 api_key=os.getenv('OPENROUTER_API_KEY'),
                 base_url=os.getenv('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'),
                 temperature=temperature,
+                timeout=60, # नेटवर्क टाइमआउट से बचने के लिए इसे जोड़ें
+                max_retries=3,
                 default_headers={
                     "HTTP-Referer": os.getenv('OPENROUTER_APP_URL', 'http://localhost:5000'),
                     "X-Title": os.getenv('OPENROUTER_APP_NAME', 'JobSearchAgent')

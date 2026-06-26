@@ -255,6 +255,14 @@ Choose "Workers AI" from the dropdown
 
 Save and deploy
 
+Create a fresh environment explicitly using Python 3.12:
+
+PowerShell
+py -3.12 -m venv venv
+Reactivate the new environment:
+
+PowerShell
+.\venv\Scripts\Activate.ps1
 
 ## Summary
 
@@ -305,9 +313,7 @@ Setup Complexity	Simple	Complex
 
 🆓 Free Models Available on OpenRouter
 Model	Provider	Quality
-google/gemini-2.0-flash-exp:free	Google	⭐⭐⭐⭐
 mistralai/mistral-7b-instruct:free	Mistral	⭐⭐⭐⭐
 meta-llama/llama-3.1-8b-instruct:free	Meta	⭐⭐⭐⭐⭐
-microsoft/phi-3.5-mini-128k-instruct:free	Microsoft	⭐⭐⭐⭐
 deepseek/deepseek-chat:free	DeepSeek	⭐⭐⭐⭐
 These are completely FREE with NO daily limits!

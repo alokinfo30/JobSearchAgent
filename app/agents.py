@@ -2,70 +2,35 @@ from crewai import Agent
 import os
 import logging
 from app.model_manager import model_manager
-from langchain_community.llms import OpenAI
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
+from langchain_community.llms import OpenAI
 
 logger = logging.getLogger(__name__)
 
 class JobSearchAgents:
-    """Define all agents with multi-provider support"""
+    """Define all agents with OpenRouter support"""
     
     def __init__(self):
         self.model_manager = model_manager
     
     def _create_llm(self, config: dict):
-        """Create LangChain LLM from provider config"""
-        provider = config['provider']
+        """Create LangChain LLM from OpenRouter config"""
         model = config['model']
         temperature = config.get('temperature', 0.5)
         
         try:
-            if provider == 'gemini':
-                return ChatGoogleGenerativeAI(
-                    model=model,
-                    google_api_key=os.getenv('GEMINI_API_KEY'),
-                    temperature=temperature,
-                    convert_system_message_to_human=True
-                )
-            elif provider == 'groq':
-                return ChatGroq(
-                    model=model,
-                    api_key=os.getenv('GROQ_API_KEY'),
-                    temperature=temperature
-                )
-            elif provider == 'github':
-                return ChatOpenAI(
-                    model=model,
-                    base_url="https://models.github.ai/inference/chat/completions",
-                    api_key=os.getenv('GITHUB_TOKEN'),
-                    temperature=temperature
-                )
-            elif provider == 'cerebras':
-                return ChatOpenAI(
-                    model=model,
-                    base_url="https://api.cerebras.ai/v1",
-                    api_key=os.getenv('CEREBRAS_API_KEY'),
-                    temperature=temperature
-                )
-            elif provider == 'openai':
-                return ChatOpenAI(
-                    model=model,
-                    api_key=os.getenv('OPENAI_API_KEY'),
-                    temperature=temperature
-                )
-            else:
-                raise ValueError(f"Unknown provider: {provider}")
+            return ChatOpenAI(
+                model=model,
+                api_key=os.getenv('OPENROUTER_API_KEY'),
+                base_url=os.getenv('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'),
+                temperature=temperature,
+                default_headers={
+                    "HTTP-Referer": os.getenv('OPENROUTER_APP_URL', 'http://localhost:5000'),
+                    "X-Title": os.getenv('OPENROUTER_APP_NAME', 'JobSearchAgent')
+                }
+            )
         except Exception as e:
-            logger.error(f"Error creating LLM for {provider}: {str(e)}")
-            # Fallback to OpenAI if available
-            if os.getenv('OPENAI_API_KEY'):
-                return ChatOpenAI(
-                    model='gpt-3.5-turbo',
-                    api_key=os.getenv('OPENAI_API_KEY'),
-                    temperature=temperature
-                )
+            logger.error(f"Error creating LLM: {str(e)}")
             raise
     
     def create_job_searcher(self):

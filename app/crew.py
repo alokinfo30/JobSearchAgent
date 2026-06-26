@@ -7,7 +7,7 @@ from app.model_manager import model_manager
 logger = logging.getLogger(__name__)
 
 class JobSearchCrew:
-    """Orchestrate the job search process"""
+    """Orchestrate the job search process with OpenRouter"""
     
     def __init__(self):
         try:
@@ -18,7 +18,7 @@ class JobSearchCrew:
             self.verbose = os.getenv('DEBUG', 'False').lower() == 'true'
             self.model_manager = model_manager
             
-            logger.info("JobSearchCrew initialized")
+            logger.info("JobSearchCrew initialized with OpenRouter")
             
             # Test models
             self._test_models()
@@ -30,14 +30,16 @@ class JobSearchCrew:
     def _test_models(self):
         """Test all configured models"""
         logger.info("Testing all configured models...")
-        results = self.model_manager.test_models()
+        results = self.model_manager.test_providers()
         
         available_count = sum(1 for v in results.values() if v)
         total_count = len(results)
         logger.info(f"Models available: {available_count}/{total_count}")
         
         if available_count == 0:
-            logger.warning("WARNING: No models are available!")
+            logger.warning("WARNING: No models are available! Check your OpenRouter API key.")
+        else:
+            logger.info(f"Available models: {[m for m, v in results.items() if v]}")
     
     def process_job_application(self, role: str, location: str, resume_content: str) -> Dict:
         """Process a complete job application workflow"""
@@ -54,7 +56,6 @@ class JobSearchCrew:
                 job_searcher, role, location
             )
             
-            # Execute search
             crew_search = Crew(
                 agents=[job_searcher],
                 tasks=[search_task],
@@ -63,8 +64,6 @@ class JobSearchCrew:
             
             logger.info("Searching for jobs...")
             search_result = crew_search.kickoff(inputs={"role": role, "location": location})
-            
-            # Parse the search result (this is simplified)
             jobs = self._parse_search_result(search_result)
             
             if not jobs:
@@ -124,11 +123,9 @@ class JobSearchCrew:
     
     def _parse_search_result(self, search_result: str) -> List[Dict]:
         """Parse the search result into a list of job dictionaries"""
-        # This is a simplified parser. In production, you would properly parse the AI response
         jobs = []
         
         # Simulate parsing - In reality, you'd parse the AI response structure
-        # For now, create sample jobs
         for i in range(3):
             jobs.append({
                 "id": f"job_{i}",

@@ -193,6 +193,40 @@ Click "Generate token"
 
 COPY THE TOKEN IMMEDIATELY (you won't see it again!)
 
+OpenRouter is the perfect solution for your quota issues. It provides a unified API with no daily limits - you pay only for what you use, and it automatically handles fallbacks between models.
+
+Why OpenRouter Solves Your Problems
+Issue	OpenRouter Solution
+Daily Quota Limits	No daily limits - pay-as-you-go
+Insufficient Quota Errors	Auto-fallback to alternative models
+Model Availability	Access to 100+ models via single API
+Cost Optimization	Auto-route to cheapest available model
+Rate Limiting	Higher rate limits with pay-per-use
+Step 1: Get OpenRouter API Key
+Baby Steps:
+Go to OpenRouter → Visit openrouter.ai
+
+Sign Up → Create a free account (no credit card required initially)
+
+Get API Key:
+
+Click your profile → "API Keys"
+
+Click "Create Key"
+
+Name it (e.g., "job-search-agent")
+
+Copy the key immediately
+
+Add Credits (Optional - $5 minimum):
+
+Go to "Billing" → "Add Credits"
+
+Add $5 (lasts for thousands of requests)
+
+Free Models Available → No credits needed for free models!
+
+
 5. Cloudflare Workers AI
 
 Sign up for Cloudflare → Go to cloudflare.com and create a free account
@@ -258,3 +292,22 @@ Endpoint	Method	Description
    • GitHub: Best for writing tasks (1,000 req/day)
    • Cerebras: Best for batch processing (1M tokens/day)
 ======================================================================
+
+📊 OpenRouter Advantages Summary
+Feature	OpenRouter	Individual Providers
+Daily Limits	None (pay-as-you-go)	Strict limits
+Model Selection	100+ models	Limited
+Fallback Routing	Automatic	Manual
+Free Models	Yes (several)	Limited
+Cost Control	Per-request	Per-request
+Rate Limits	Higher	Low
+Setup Complexity	Simple	Complex
+
+🆓 Free Models Available on OpenRouter
+Model	Provider	Quality
+google/gemini-2.0-flash-exp:free	Google	⭐⭐⭐⭐
+mistralai/mistral-7b-instruct:free	Mistral	⭐⭐⭐⭐
+meta-llama/llama-3.1-8b-instruct:free	Meta	⭐⭐⭐⭐⭐
+microsoft/phi-3.5-mini-128k-instruct:free	Microsoft	⭐⭐⭐⭐
+deepseek/deepseek-chat:free	DeepSeek	⭐⭐⭐⭐
+These are completely FREE with NO daily limits!
